@@ -1,0 +1,57 @@
+create database ooo_boots;
+use ooo_boots;
+
+create table users(
+id_user int auto_increment primary key,
+role varchar(255),
+f_name varchar(255),
+l_name varchar(255),
+m_name varchar(255),
+login varchar(255),
+passwrd varchar(255)
+);
+
+
+create table pvz(
+id_pvz int auto_increment primary key,
+indexs int,
+city varchar(255),
+street varchar(255),
+house varchar(255)
+);
+
+
+create table product(
+id_prod varchar(255) primary key,
+type_prod varchar(255),
+ed_izmer varchar(255) default 'шт',
+price int,
+postav varchar(255),
+creater varchar(255),
+categoty varchar(255),
+sale int default 0,
+num_in_warehouse int default 0,
+descrip varchar(255) default 'отсутствует',
+photo varchar(255) default 'pix_db/picture.png'
+);
+
+create table orders(
+id_ord int auto_increment primary key,
+date_ord date,
+date_delev date,
+id_pvz int,
+id_user int,
+get_code int,
+status varchar(255),
+foreign key(id_pvz) references pvz(id_pvz) on update cascade,
+foreign key(id_user) references users(id_user) on update cascade
+);
+
+create table in_ord(
+id_in_ord int auto_increment primary key,
+id_ord int,
+id_prod varchar(255),
+num int,
+foreign key(id_ord) references orders(id_ord) on update cascade,
+foreign key(id_prod) references product(id_prod) on update cascade
+);
